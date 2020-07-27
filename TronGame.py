@@ -17,21 +17,18 @@ line2=[[(width/2)-20, height/2]]
 
 gameon=False
 winner = "no one"
+line_size = 4
+x=1
  
 #music
-# sound = simplegui.load_sound('https://www.dropbox.com/s/txaru540ddsnxz4/%5Bmp3lemon.net%5D%2014%20-%20Fall.mp3?dl=1')
-# sound.set_volume(1)
+#sound = simplegui.load_sound('https://www.dropbox.com/s/txaru540ddsnxz4/%5Bmp3lemon.net%5D%2014%20-%20Fall.mp3?dl=1')
+#sound.set_volume(1)
+#sound.play()
 
-# sound.play()
 
-
-bike1 = simplegui.load_image('https://www.dropbox.com/s/bjxvesred888a5w/LightcycleB..png?dl=1')        
-bike2 = simplegui.load_image('https://www.dropbox.com/s/q4t0q6c0vilexqo/LightcycleO.png?dl=1')
-grid = simplegui.load_image('https://www.dropbox.com/s/x19smirjg21zgfm/grid.jpg?dl=1')
-
-line_size = 4
-
-x=1
+bike1 = simplegui.load_image('https://raw.githubusercontent.com/Chris300127/TronLightCycles/master/LightcycleB.png')        
+bike2 = simplegui.load_image('https://raw.githubusercontent.com/Chris300127/TronLightCycles/master/LightcycleO.png')
+#grid = simplegui.load_image('https://raw.githubusercontent.com/Chris300127/TronLightCycles/master/grid.jpg')
 
 
 
@@ -43,17 +40,17 @@ print("Press SPACE to start\n")
 #####################################################
 
 def draw_handler(canvas):
-    #draws bikes and sets rotation
     global winner
-    canvas.draw_image(grid, (420/2, 420/2), (420, 420), (width/2, height/2), (width, height))    
-    canvas.draw_image(bike1, (628 / 2, 238 / 2), (628, 238), (bike1_pos), (628/15, 238/15), 3*rotation1)
-    canvas.draw_image(bike2, (580 / 2, 219 / 2), (580, 219), (bike2_pos), (580/15, 219/15), rotation2)    
-    
-    
+    #draw grid image background
+    #canvas.draw_image(grid, (420/2, 420/2), (420, 420), (width/2, height/2), (width, height))  
+
     #draws lines behind each bike    
     canvas.draw_polyline(line1, line_size, 'aqua')
     canvas.draw_polyline(line2, line_size, 'orange')
     
+    #draws bikes and sets rotation  
+    canvas.draw_image(bike1, (628 / 2, 238 / 2), (628, 238), (bike1_pos), (628/15, 238/15), 3*rotation1)
+    canvas.draw_image(bike2, (580 / 2, 219 / 2), (580, 219), (bike2_pos), (580/15, 219/15), rotation2) 
     
     #updates bike position
     bike1_pos[0] += move1[0]
@@ -67,7 +64,6 @@ def draw_handler(canvas):
         line1.append([bike1_pos[0], bike1_pos[1]])
         line2.append([bike2_pos[0], bike2_pos[1]])        
     
-    
     #makes bike unable to hit other line    
     if gameon==True:
         if bike2_pos in line1:
@@ -79,7 +75,6 @@ def draw_handler(canvas):
             winner = "Orange"
             game_reset()
             return
-        
         
 #	makes bike unable to hit its own line    
         if bike1_pos in line1[0:-2]:
@@ -133,7 +128,6 @@ def keydown(key):
             rotation1 = 2*1.57079633
             move1 = [4, 0]
         
-    
         if key==simplegui.KEY_MAP['w']:     
             rotation2 = 1.57079633
             move2 = [0, -4]
@@ -155,7 +149,7 @@ def keydown(key):
             move1 = [0, 4]
             move2 = [0, -4]
             x=2
-            # sound.play()
+            #sound.play()
             gameon=True
         
 #reset game function       
@@ -173,7 +167,7 @@ def game_reset():
         x=1
         print(winner,"wins")
         winner = "no one"
-        # sound.play()       
+        #sound.play()       
         gameon=False
         
 #Increases and Decreases line size       
@@ -193,7 +187,7 @@ def line_decrease():
         
 def quit():
     # global sound
-    # sound.rewind()
+    #sound.rewind()
     frame.stop()
     
 frame = simplegui.create_frame("Tron", width, height)
